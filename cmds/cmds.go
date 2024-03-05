@@ -15,7 +15,7 @@ func GetCliCommands() map[string]CliCommand {
 	return map[string]CliCommand{
 		"help": {
 			Name:        "help",
-			Description: "displays a help message",
+			Description: "Displays a help message",
 			Callback:    helpCommand,
 		},
 		"exit": {
@@ -27,7 +27,15 @@ func GetCliCommands() map[string]CliCommand {
 }
 
 func helpCommand() error {
-	fmt.Println("Help message")
+	fmt.Println()
+	fmt.Println("Welcome to the Pokedex!")
+	fmt.Println("Usage:")
+	fmt.Println()
+	for _, cmd := range GetCliCommands() {
+		fmt.Printf("%s: %s\n", cmd.Name, cmd.Description)
+	}
+	fmt.Println()
+
 	return nil
 }
 

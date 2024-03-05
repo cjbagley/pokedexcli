@@ -16,19 +16,25 @@ func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 	r, _ := regexp.Compile("[^A-Za-z]")
 
-	fmt.Print(Prompt)
+	showPrompt()
 	for scanner.Scan() {
 		input := r.ReplaceAllString(scanner.Text(), "")
 
-		fmt.Println(input)
-
 		cmd, ok := cmds[input]
-		if ok {
-			cmd.Callback()
+		if !ok {
+			fmt.Println("Command not recognised. Use 'help' for available command list")
+			showPrompt()
+			continue
 		}
-		fmt.Print(Prompt)
+
+		cmd.Callback()
+		showPrompt()
 	}
 	if err := scanner.Err(); err != nil {
 		fmt.Fprintln(os.Stderr, "reading standard input:", err)
 	}
+}
+
+func showPrompt() {
+	fmt.Print(Prompt)
 }
