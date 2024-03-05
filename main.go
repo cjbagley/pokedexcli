@@ -4,9 +4,9 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"regexp"
 
 	"github.com/cjbagley/pokedexcli/cmds"
+	"github.com/cjbagley/pokedexcli/utils"
 )
 
 const Prompt = "Pokedex > "
@@ -14,13 +14,12 @@ const Prompt = "Pokedex > "
 func main() {
 	cmds := cmds.GetCliCommands()
 	scanner := bufio.NewScanner(os.Stdin)
-	r, _ := regexp.Compile("[^A-Za-z]")
 
 	showPrompt()
 	for scanner.Scan() {
-		input := r.ReplaceAllString(scanner.Text(), "")
+		input := utils.SanitisePromptInput(scanner.Text())
 
-		cmd, ok := cmds[input]
+		cmd, ok := cmds[input[0]]
 		if !ok {
 			fmt.Println("Command not recognised. Use 'help' for available command list")
 			showPrompt()
