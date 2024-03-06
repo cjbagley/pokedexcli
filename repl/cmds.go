@@ -1,4 +1,4 @@
-package cmds
+package repl
 
 import (
 	"fmt"
@@ -20,7 +20,7 @@ func GetCliCommands() map[string]CliCommand {
 		},
 		"exit": {
 			Name:        "exit",
-			Description: "Exit the Pokedex",
+			Description: "Exit the Pokédex",
 			Callback:    exitCommand,
 		},
 	}
@@ -28,7 +28,7 @@ func GetCliCommands() map[string]CliCommand {
 
 func helpCommand() error {
 	fmt.Println()
-	fmt.Println("Welcome to the Pokedex!")
+	fmt.Println("Welcome to the Pokédex!")
 	fmt.Println("Usage:")
 	fmt.Println()
 	for _, cmd := range GetCliCommands() {
