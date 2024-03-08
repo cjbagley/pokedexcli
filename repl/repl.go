@@ -13,7 +13,8 @@ const Prompt = "Pokédex > "
 const HelpMsg = "Use 'help' for available command list.\n"
 
 func StartRepl() {
-	cmds := cmds.GetCliCommands()
+	config := cmds.Config{}
+	cmds := cmds.GetCliCommands(&config)
 	scanner := bufio.NewScanner(os.Stdin)
 
 	showPrompt()

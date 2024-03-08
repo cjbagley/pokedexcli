@@ -2,7 +2,7 @@ package cmds
 
 import "os"
 
-func ExitCommand() error {
+func ExitCommand(config *Config, args ...string) error {
 	defer os.Exit(0)
 	return nil
 }

@@ -1,8 +1,8 @@
 package cmds
 
-import "fmt"
-
-func MapCommand() error {
-	fmt.Println("Map command will go here")
+func MapCommand(config *Config, args ...string) error {
+	if config.NextUrl == "" {
+		config.NextUrl = "location"
+	}
 	return nil
 }
