@@ -24,6 +24,11 @@ type Location struct {
 
 func GetLocations(url string) (LocationData, error) {
 	var location LocationData
+
+	if url == "" {
+		url = "location"
+	}
+
 	data, err := getApiResponse(url)
 	if err != nil {
 		return location, err
@@ -31,8 +36,9 @@ func GetLocations(url string) (LocationData, error) {
 
 	err = json.Unmarshal(data, &location)
 	if err != nil {
-		return location, err
+		return LocationData{}, err
 	}
+
 	return location, nil
 }
 
@@ -56,3 +62,4 @@ func getApiResponse(url string) ([]byte, error) {
 
 	return data, nil
 }
+
