@@ -3,14 +3,34 @@ package utils
 import "testing"
 
 func TestGetEndpointFromUrl(t *testing.T) {
-	url := "http://bing.com/search?q=dotnet"
-	expected := "search?q=dotnet"
-	got, err := GetEndpointFromUrl(url)
-	if err != nil {
-		t.Errorf("GetEndpointFromUrl errored: %v", err)
+
+	cases := []struct {
+		input    string
+		expected string
+	}{
+		{
+			input:    "http://bing.com/search?q=dotnet",
+			expected: "search?q=dotnet",
+		},
+		{
+			input:    "https://pokeapi.co/api/v2/location",
+			expected: "location",
+		},
+		{
+			input:    "https://pokeapi.co/api/v2/location?offset=20&limit=20",
+			expected: "location?limit=20&offset=20",
+		},
 	}
 
-	if got != expected {
-		t.Errorf("GetEndpointFromUrl expected '%v', got '%v", expected, got)
+	for _, c := range cases {
+		actual, err := GetEndpointFromUrl(c.input)
+		if err != nil {
+			t.Errorf("GetEndpointFromUrl(%v) errored: %v", c.input, err)
+		}
+
+		if actual != c.expected {
+			t.Errorf("GetEndpointFromUrl(%v) == %v, expected %v", c.input, actual, c.expected)
+		}
 	}
+
 }

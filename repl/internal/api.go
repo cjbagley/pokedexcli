@@ -62,4 +62,3 @@ func getApiResponse(url string) ([]byte, error) {
 
 	return data, nil
 }
-

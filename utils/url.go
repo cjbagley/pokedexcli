@@ -1,5 +1,22 @@
 package utils
 
-func GetEndpointFromUrl(string) (string, error) {
-	return "", nil
+import (
+	"net/url"
+	"strings"
+)
+
+func GetEndpointFromUrl(raw_url string) (string, error) {
+	u, err := url.Parse(raw_url)
+	if err != nil {
+		return "", err
+	}
+
+	parts := strings.Split(u.Path, "/")
+	path := parts[len(parts)-1]
+	query := u.Query().Encode()
+	if query != "" {
+		path += "?" + query
+	}
+
+	return path, nil
 }
