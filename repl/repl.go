@@ -33,7 +33,11 @@ func StartRepl() {
 			continue
 		}
 
-		cmd.Callback()
+		err := cmd.Callback()
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
 		showPrompt()
 	}
 	if err := scanner.Err(); err != nil {
