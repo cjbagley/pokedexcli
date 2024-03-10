@@ -15,9 +15,11 @@ type Location struct {
 }
 
 func (l *LocationData) PrintLocations() {
+	fmt.Printf("========================\n")
 	for _, location := range l.Locations {
 		location.PrintLocation()
 	}
+	fmt.Printf("========================\n")
 }
 
 func (l *Location) PrintLocation() {
