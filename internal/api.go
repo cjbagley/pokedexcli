@@ -8,25 +8,14 @@ import (
 	"net/http"
 )
 
-const API_ENDPOINT = "https://pokeapi.co/api/v2/"
-
-type LocationData struct {
-	Count    int        `json:"count"`
-	Next     string     `json:"next"`
-	Previous string     `json:"previous"`
-	Location []Location `json:"results"`
-}
-
-type Location struct {
-	Name string `json:"name"`
-	Url  string `json:"url"`
-}
+const API_BASE_URL = "https://pokeapi.co/api/v2/"
+const LOCATION_AREA_ENDPOINT = "location-area"
 
 func GetLocations(url string) (LocationData, error) {
 	var location LocationData
 
 	if url == "" {
-		url = "location"
+		url = LOCATION_AREA_ENDPOINT
 	}
 
 	data, err := getApiResponse(url)
@@ -42,9 +31,10 @@ func GetLocations(url string) (LocationData, error) {
 	return location, nil
 }
 
-func getApiResponse(url string) ([]byte, error) {
+func getApiResponse(endpoint string) ([]byte, error) {
 	data := []byte{}
-	res, err := http.Get(fmt.Sprintf("%v%v", API_ENDPOINT, url))
+	url := fmt.Sprintf("%v%v", API_BASE_URL, endpoint)
+	res, err := http.Get(url)
 	if err != nil {
 		return data, err
 	}

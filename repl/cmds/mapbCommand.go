@@ -1,8 +1,26 @@
 package cmds
 
-import "fmt"
+import (
+	"github.com/cjbagley/pokedexcli/internal"
+	"github.com/cjbagley/pokedexcli/utils"
+)
 
 func MapbCommand(config *Config, args ...string) error {
-	fmt.Println("Mapb command will go here")
+	data, err := internal.GetLocations(config.PreviousUrl)
+	if err != nil {
+		return err
+	}
+
+	config.NextUrl, err = utils.GetEndpointFromUrl(data.Next)
+	if err != nil {
+		return err
+	}
+
+	config.PreviousUrl, err = utils.GetEndpointFromUrl(data.Previous)
+	if err != nil {
+		return err
+	}
+
+	data.PrintLocations()
 	return nil
 }

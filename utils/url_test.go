@@ -17,8 +17,8 @@ func TestGetEndpointFromUrl(t *testing.T) {
 			expected: "location",
 		},
 		{
-			input:    "https://pokeapi.co/api/v2/location?offset=20&limit=20",
-			expected: "location?limit=20&offset=20",
+			input:    "https://pokeapi.co/api/v2/location-area?offset=20&limit=20",
+			expected: "location-area?limit=20&offset=20",
 		},
 	}
 

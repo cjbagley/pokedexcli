@@ -6,6 +6,10 @@ import (
 )
 
 func GetEndpointFromUrl(raw_url string) (string, error) {
+	if raw_url == "" {
+		return "", nil
+	}
+
 	u, err := url.Parse(raw_url)
 	if err != nil {
 		return "", err

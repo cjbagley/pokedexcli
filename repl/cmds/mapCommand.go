@@ -1,9 +1,8 @@
 package cmds
 
 import (
-	"fmt"
-
-	"github.com/cjbagley/pokedexcli/repl/internal"
+	"github.com/cjbagley/pokedexcli/internal"
+	"github.com/cjbagley/pokedexcli/utils"
 )
 
 func MapCommand(config *Config, args ...string) error {
@@ -12,9 +11,15 @@ func MapCommand(config *Config, args ...string) error {
 		return err
 	}
 
-	config.NextUrl = data.Next
-	config.PreviousUrl = data.Previous
+	config.NextUrl, err = utils.GetEndpointFromUrl(data.Next)
+	if err != nil {
+		return err
+	}
 
-	fmt.Println(data.Location[0])
+	config.PreviousUrl, err = utils.GetEndpointFromUrl(data.Previous)
+	if err != nil {
+		return err
+	}
+	data.PrintLocations()
 	return nil
 }
