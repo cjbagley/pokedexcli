@@ -14,7 +14,7 @@ const HelpMsg = "Use 'help' for available command list.\n"
 
 func StartRepl() {
 	config := cmds.Config{}
-	cmds := cmds.GetCliCommands(&config)
+	cmds := cmds.GetCliCommands()
 	scanner := bufio.NewScanner(os.Stdin)
 
 	showPrompt()
@@ -33,7 +33,7 @@ func StartRepl() {
 			continue
 		}
 
-		err := cmd.Callback()
+		err := cmd.Callback(&config)
 		if err != nil {
 			fmt.Println(err)
 			os.Exit(1)
