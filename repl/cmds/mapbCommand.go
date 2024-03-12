@@ -1,12 +1,11 @@
 package cmds
 
 import (
-	"github.com/cjbagley/pokedexcli/internal"
 	"github.com/cjbagley/pokedexcli/utils"
 )
 
 func MapbCommand(config *Config, args ...string) error {
-	data, err := internal.GetLocations(config.PreviousUrl)
+	data, err := config.Client.GetLocations(config.PreviousUrl)
 	if err != nil {
 		return err
 	}

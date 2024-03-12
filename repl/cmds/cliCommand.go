@@ -1,5 +1,7 @@
 package cmds
 
+import "github.com/cjbagley/pokedexcli/internal"
+
 type CliCommand struct {
 	Name        string
 	Description string
@@ -7,6 +9,7 @@ type CliCommand struct {
 }
 
 type Config struct {
+	Client      internal.Client
 	NextUrl     string
 	PreviousUrl string
 }

@@ -1,9 +1,13 @@
 package internal
 
-import "testing"
+import (
+	"testing"
+	"time"
+)
 
 func TestCallApi(t *testing.T) {
-	result, err := getApiResponse(LOCATION_AREA_ENDPOINT)
+	client := NewClient(5 * time.Second)
+	result, err := client.getApiResponse(LOCATION_AREA_ENDPOINT)
 	if err != nil {
 		t.Errorf("API call error: %v", err)
 	}

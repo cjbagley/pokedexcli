@@ -4,7 +4,9 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"time"
 
+	"github.com/cjbagley/pokedexcli/internal"
 	"github.com/cjbagley/pokedexcli/repl/cmds"
 	"github.com/cjbagley/pokedexcli/utils"
 )
@@ -13,7 +15,8 @@ const Prompt = "Pokédex > "
 const HelpMsg = "Use 'help' for available command list.\n"
 
 func StartRepl() {
-	config := cmds.Config{}
+	client := internal.NewClient(5 * time.Second)
+	config := cmds.Config{Client: client}
 	cmds := cmds.GetCliCommands()
 	scanner := bufio.NewScanner(os.Stdin)
 
