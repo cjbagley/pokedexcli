@@ -22,9 +22,9 @@ func TestAddGet(t *testing.T) {
 		},
 	}
 
+	cache := NewCache(interval)
 	for i, c := range cases {
 		t.Run(fmt.Sprintf("Test case %v", i), func(t *testing.T) {
-			cache := NewCache(interval)
 			cache.Add(c.key, c.val)
 			val, ok := cache.Get(c.key)
 			if !ok {
