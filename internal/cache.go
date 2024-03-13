@@ -27,7 +27,7 @@ func (c *Cache) Add(key string, val []byte) {
 
 func (c *Cache) Get(key string) (val []byte, ok bool) {
 	c.mu.RLock()
-	c.mu.RUnlock()
+	defer c.mu.RUnlock()
 	entry, ok := c.cache[key]
 	if !ok {
 		return []byte{}, false
@@ -43,14 +43,20 @@ func (c *Cache) reapLoop() {
 			continue
 		}
 
-		expiry := time.Now().Add(-1 * c.ttl)
+		c.reap()
+	}
+}
 
-		for key, entry := range c.cache {
-			if entry.createdAt.After(expiry) {
-				continue
-			}
-			delete(c.cache, key)
+func (c *Cache) reap() {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	expiry := time.Now().Add(-1 * c.ttl)
+	for key, entry := range c.cache {
+		if entry.createdAt.After(expiry) {
+			continue
 		}
+		delete(c.cache, key)
 	}
 }
 
