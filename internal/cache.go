@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"fmt"
 	"sync"
 	"time"
 )
@@ -33,10 +34,21 @@ func (c *Cache) Get(key string) (val []byte, ok bool) {
 	return entry.val, true
 }
 
+func (c *Cache) reapLoop() {
+	ticker := time.NewTicker(c.ttl)
+	for range ticker.C {
+		fmt.Println("TICK")
+	}
+}
+
 func NewCache(ttl time.Duration) Cache {
-	return Cache{
+	c := Cache{
 		ttl:   ttl,
 		cache: map[string]cacheEntry{},
 		mu:    &sync.RWMutex{},
 	}
+
+	go c.reapLoop()
+
+	return c
 }
