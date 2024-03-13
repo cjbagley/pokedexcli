@@ -16,8 +16,7 @@ const HelpMsg = "Use 'help' for available command list.\n"
 
 func StartRepl() {
 	config := cmds.Config{
-		Client: internal.NewClient(5 * time.Second),
-		Cache:  internal.NewCache(5 * time.Minute),
+		Client: internal.NewClient(5*time.Second, 5*time.Minute),
 	}
 	cmds := cmds.GetCliCommands()
 	scanner := bufio.NewScanner(os.Stdin)

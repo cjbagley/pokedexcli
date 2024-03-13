@@ -13,19 +13,26 @@ const LOCATION_AREA_ENDPOINT = "location-area"
 
 type Client struct {
 	httpClient http.Client
+	cache      Cache
 }
 
-func NewClient(timeout time.Duration) Client {
+func NewClient(httptimeout time.Duration, cachettl time.Duration) Client {
 	return Client{
 		httpClient: http.Client{
-			Timeout: timeout,
+			Timeout: httptimeout,
 		},
+		cache: NewCache(cachettl),
 	}
 }
 
 func (c *Client) getApiResponse(endpoint string) ([]byte, error) {
 	data := []byte{}
 	url := fmt.Sprintf("%v%v", API_BASE_URL, endpoint)
+
+	if cache, ok := c.cache.Get(url); ok {
+		return cache, nil
+	}
+
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return data, err
@@ -43,5 +50,8 @@ func (c *Client) getApiResponse(endpoint string) ([]byte, error) {
 	}
 
 	data, err = io.ReadAll(res.Body)
+
+	c.cache.Add(url, data)
+
 	return data, err
 }

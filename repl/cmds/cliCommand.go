@@ -10,7 +10,6 @@ type CliCommand struct {
 
 type Config struct {
 	Client      internal.Client
-	Cache       internal.Cache
 	NextUrl     string
 	PreviousUrl string
 }
