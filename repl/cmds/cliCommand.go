@@ -16,6 +16,16 @@ type Config struct {
 
 func GetCliCommands() map[string]CliCommand {
 	return map[string]CliCommand{
+		"exit": {
+			Name:        "exit",
+			Description: "Exit the Pokédex",
+			Callback:    ExitCommand,
+		},
+		"explore": {
+			Name:        "explore",
+			Description: "Show a list of Pokémon within a given area. A location must be passed with this command.",
+			Callback:    ExploreCommand,
+		},
 		"help": {
 			Name:        "help",
 			Description: "Displays a help message",
@@ -30,11 +40,6 @@ func GetCliCommands() map[string]CliCommand {
 			Name:        "mapb",
 			Description: "Displays the last 20 location areas. Each subsequent call will get the last 20 available",
 			Callback:    MapbCommand,
-		},
-		"exit": {
-			Name:        "exit",
-			Description: "Exit the Pokédex",
-			Callback:    ExitCommand,
 		},
 	}
 }
