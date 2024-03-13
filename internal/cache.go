@@ -1,7 +1,6 @@
 package internal
 
 import (
-	"fmt"
 	"sync"
 	"time"
 )
@@ -20,7 +19,10 @@ type Cache struct {
 func (c *Cache) Add(key string, val []byte) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	c.cache[key] = cacheEntry{val: val}
+	c.cache[key] = cacheEntry{
+		val:       val,
+		createdAt: time.Now(),
+	}
 }
 
 func (c *Cache) Get(key string) (val []byte, ok bool) {
@@ -37,7 +39,18 @@ func (c *Cache) Get(key string) (val []byte, ok bool) {
 func (c *Cache) reapLoop() {
 	ticker := time.NewTicker(c.ttl)
 	for range ticker.C {
-		fmt.Println("TICK")
+		if len(c.cache) == 0 {
+			continue
+		}
+
+		expiry := time.Now().Add(-1 * c.ttl)
+
+		for key, entry := range c.cache {
+			if entry.createdAt.After(expiry) {
+				continue
+			}
+			delete(c.cache, key)
+		}
 	}
 }
 
