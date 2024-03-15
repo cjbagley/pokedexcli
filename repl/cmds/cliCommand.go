@@ -9,9 +9,9 @@ type CliCommand struct {
 }
 
 type Config struct {
-	Client      internal.Client
-	NextUrl     string
-	PreviousUrl string
+	Client              internal.Client
+	LocationNextUrl     string
+	LocationPreviousUrl string
 }
 
 func GetCliCommands() map[string]CliCommand {

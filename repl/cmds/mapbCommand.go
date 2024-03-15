@@ -5,21 +5,21 @@ import (
 )
 
 func MapbCommand(config *Config, args ...string) error {
-	data, err := config.Client.GetLocations(config.PreviousUrl)
+	list, err := config.Client.GetLocationList(config.LocationPreviousUrl)
 	if err != nil {
 		return err
 	}
 
-	config.NextUrl, err = utils.GetEndpointFromUrl(data.Next)
+	config.LocationNextUrl, err = utils.GetEndpointFromUrl(list.Next)
 	if err != nil {
 		return err
 	}
 
-	config.PreviousUrl, err = utils.GetEndpointFromUrl(data.Previous)
+	config.LocationPreviousUrl, err = utils.GetEndpointFromUrl(list.Previous)
 	if err != nil {
 		return err
 	}
 
-	data.PrintLocations()
+	list.Print()
 	return nil
 }

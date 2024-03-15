@@ -2,23 +2,11 @@ package internal
 
 import (
 	"encoding/json"
-	"fmt"
+	t "github.com/cjbagley/pokedexcli/internal/types"
 )
 
-type LocationData struct {
-	Count     int        `json:"count"`
-	Next      string     `json:"next"`
-	Previous  string     `json:"previous"`
-	Locations []Location `json:"results"`
-}
-
-type Location struct {
-	Name string `json:"name"`
-	Url  string `json:"url"`
-}
-
-func (c *Client) GetLocations(url string) (LocationData, error) {
-	var location LocationData
+func (c *Client) GetLocationList(url string) (t.LocationList, error) {
+	var locations t.LocationList
 
 	if url == "" {
 		url = LOCATION_AREA_ENDPOINT
@@ -26,25 +14,13 @@ func (c *Client) GetLocations(url string) (LocationData, error) {
 
 	data, err := c.getApiResponse(url)
 	if err != nil {
-		return location, err
+		return locations, err
 	}
 
-	err = json.Unmarshal(data, &location)
+	err = json.Unmarshal(data, &locations)
 	if err != nil {
-		return LocationData{}, err
+		return t.LocationList{}, err
 	}
 
-	return location, nil
-}
-
-func (l *LocationData) PrintLocations() {
-	fmt.Printf("========================\n")
-	for _, location := range l.Locations {
-		location.PrintLocation()
-	}
-	fmt.Printf("========================\n")
-}
-
-func (l *Location) PrintLocation() {
-	fmt.Printf("%v\n", l.Name)
+	return locations, nil
 }
