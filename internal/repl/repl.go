@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/cjbagley/pokedexcli/internal"
-	"github.com/cjbagley/pokedexcli/repl/cmds"
+	"github.com/cjbagley/pokedexcli/internal/api"
+	"github.com/cjbagley/pokedexcli/internal/repl/cmds"
 	"github.com/cjbagley/pokedexcli/utils"
 )
 
@@ -16,7 +16,7 @@ const HelpMsg = "Use 'help' for available command list.\n"
 
 func StartRepl() {
 	config := cmds.Config{
-		Client: internal.NewClient(5*time.Second, 5*time.Minute),
+		Client: api.NewClient(5*time.Second, 5*time.Minute),
 	}
 	cmds := cmds.GetCliCommands()
 	scanner := bufio.NewScanner(os.Stdin)
@@ -37,10 +37,9 @@ func StartRepl() {
 			continue
 		}
 
-		err := cmd.Callback(&config)
+		err := cmd.Callback(&config, input...)
 		if err != nil {
 			fmt.Println(err)
-			os.Exit(1)
 		}
 		showPrompt()
 	}

@@ -1,5 +1,7 @@
 package types
 
+import "fmt"
+
 type Location struct {
 	EncounterMethodRates []struct {
 		EncounterMethod struct {
@@ -48,4 +50,13 @@ type Location struct {
 			} `json:"version"`
 		} `json:"version_details"`
 	} `json:"pokemon_encounters"`
+}
+
+func (l *Location) Print() {
+	fmt.Printf("========================\n")
+	fmt.Printf(l.Location.Name)
+	for _, pokemon := range l.PokemonEncounters {
+		fmt.Printf("%v\n", pokemon.Pokemon.Name)
+	}
+	fmt.Printf("========================\n")
 }

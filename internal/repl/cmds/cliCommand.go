@@ -1,6 +1,6 @@
 package cmds
 
-import "github.com/cjbagley/pokedexcli/internal"
+import "github.com/cjbagley/pokedexcli/internal/api"
 
 type CliCommand struct {
 	Name        string
@@ -9,7 +9,7 @@ type CliCommand struct {
 }
 
 type Config struct {
-	Client              internal.Client
+	Client              api.Client
 	LocationNextUrl     string
 	LocationPreviousUrl string
 }
