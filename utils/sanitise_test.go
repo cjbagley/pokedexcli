@@ -28,8 +28,12 @@ func TestSanitisePromptInput(t *testing.T) {
 			expected: []string{},
 		},
 		{
-			input:    `|Symbols*shouldbe!-#'?!\"^$*()removed`,
-			expected: []string{"symbols", "shouldbe", "removed"},
+			input:    "   !this-is-okAy!  ",
+			expected: []string{"this-is-okay"},
+		},
+		{
+			input:    `|Symbols*should!be!#'?!\"^$*()removed`,
+			expected: []string{"symbols", "should", "be", "removed"},
 		},
 	}
 

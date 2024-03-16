@@ -52,11 +52,12 @@ type Location struct {
 	} `json:"pokemon_encounters"`
 }
 
-func (l *Location) Print() {
+func (l *Location) PrintAreaPokemon() {
 	fmt.Printf("========================\n")
-	fmt.Printf(l.Location.Name)
+	fmt.Printf("Exploring %v...\n", l.Location.Name)
+	fmt.Println("Found the following Pokémon:")
 	for _, pokemon := range l.PokemonEncounters {
-		fmt.Printf("%v\n", pokemon.Pokemon.Name)
+		fmt.Printf(" - %v\n", pokemon.Pokemon.Name)
 	}
 	fmt.Printf("========================\n")
 }

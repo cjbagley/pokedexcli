@@ -2,6 +2,8 @@ package api
 
 import (
 	"encoding/json"
+	"errors"
+	"strings"
 
 	t "github.com/cjbagley/pokedexcli/internal/types"
 )
@@ -33,6 +35,11 @@ func (c *Client) GetLocation(area string) (t.Location, error) {
 
 	data, err := c.getApiResponse(url)
 	if err != nil {
+
+		if strings.Contains(err.Error(), "404") {
+			return location, errors.New("location given does not exist")
+		}
+
 		return location, err
 	}
 

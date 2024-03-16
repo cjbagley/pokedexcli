@@ -15,13 +15,13 @@ func ExploreCommand(config *Config, args ...string) error {
 		return errors.New("please provide only one area")
 	}
 
-	area := utils.SanitisePromptInput(args[0])
+	area := utils.SanitisePromptInput(args[1])
 	location, err := config.Client.GetLocation(area[0])
 	if err != nil {
 		return err
 	}
 
-	location.Print()
+	location.PrintAreaPokemon()
 
 	return nil
 }

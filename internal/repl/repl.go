@@ -39,15 +39,24 @@ func StartRepl() {
 
 		err := cmd.Callback(&config, input...)
 		if err != nil {
-			fmt.Println(err)
+			DisplayError(err)
 		}
 		showPrompt()
 	}
 	if err := scanner.Err(); err != nil {
-		fmt.Fprintln(os.Stderr, "reading standard input:", err)
+		ExitWithError(err)
 	}
 }
 
 func showPrompt() {
 	fmt.Print(Prompt)
+}
+
+func DisplayError(err error) {
+	fmt.Printf("Error: %v\n", err.Error())
+}
+
+func ExitWithError(err error) {
+	DisplayError(err)
+	os.Exit(1)
 }
