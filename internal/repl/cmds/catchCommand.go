@@ -3,7 +3,9 @@ package cmds
 import (
 	"errors"
 	"fmt"
+	"strings"
 
+	"github.com/cjbagley/pokedexcli/internal/types"
 	"github.com/cjbagley/pokedexcli/utils"
 )
 
@@ -16,9 +18,15 @@ func CatchCommand(config *Config, args ...string) error {
 		return errors.New("please provide only one Pokémon")
 	}
 
+	pokedex := types.GetPokedex()
+
 	pokémon, err := config.Client.GetPokemon(args[1])
 	if err != nil {
 		return err
+	}
+
+	if pokedex.IsCaught(pokémon) {
+		return errors.New("pokémon has already been caught")
 	}
 
 	fmt.Printf("Throwing a Pokéball at %v\n", pokémon.Name)
@@ -28,11 +36,13 @@ func CatchCommand(config *Config, args ...string) error {
 	}
 	isCaught := utils.PassesRandomThreshholdCheck(ball)
 
-	if isCaught {
-		fmt.Printf("%v caught!\n", pokémon.Name)
-	} else {
+	if !isCaught {
 		fmt.Printf("%v escaped!\n", pokémon.Name)
+		return nil
 	}
 
+	fmt.Printf("%v caught!\n", pokémon.Name)
+	pokedex.Add(pokémon)
+	fmt.Printf("%v added to Pokédex!\n", pokémon.Name)
 	return nil
 }
