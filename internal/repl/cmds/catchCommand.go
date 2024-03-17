@@ -3,7 +3,6 @@ package cmds
 import (
 	"errors"
 	"fmt"
-	"strings"
 
 	"github.com/cjbagley/pokedexcli/internal/types"
 	"github.com/cjbagley/pokedexcli/utils"
