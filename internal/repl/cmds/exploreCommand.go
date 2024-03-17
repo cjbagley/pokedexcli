@@ -2,8 +2,6 @@ package cmds
 
 import (
 	"errors"
-
-	"github.com/cjbagley/pokedexcli/utils"
 )
 
 func ExploreCommand(config *Config, args ...string) error {
@@ -15,8 +13,7 @@ func ExploreCommand(config *Config, args ...string) error {
 		return errors.New("please provide only one area")
 	}
 
-	area := utils.SanitisePromptInput(args[1])
-	location, err := config.Client.GetLocation(area[0])
+	location, err := config.Client.GetLocation(args[1])
 	if err != nil {
 		return err
 	}

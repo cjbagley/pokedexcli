@@ -16,6 +16,11 @@ type Config struct {
 
 func GetCliCommands() map[string]CliCommand {
 	return map[string]CliCommand{
+		"catch": {
+			Name:        "catch",
+			Description: "Use this command with a given Pokémon to try and catch it! If you do, it will be added to your Pokédex",
+			Callback:    CatchCommand,
+		},
 		"exit": {
 			Name:        "exit",
 			Description: "Exit the Pokédex",
