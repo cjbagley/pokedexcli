@@ -3,7 +3,6 @@ package utils
 import "testing"
 
 func TestGetEndpointFromUrl(t *testing.T) {
-
 	cases := []struct {
 		input    string
 		expected string
@@ -32,5 +31,4 @@ func TestGetEndpointFromUrl(t *testing.T) {
 			t.Errorf("GetEndpointFromUrl(%v) == %v, expected %v", c.input, actual, c.expected)
 		}
 	}
-
 }

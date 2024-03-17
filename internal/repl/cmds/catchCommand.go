@@ -3,6 +3,8 @@ package cmds
 import (
 	"errors"
 	"fmt"
+
+	"github.com/cjbagley/pokedexcli/utils"
 )
 
 func CatchCommand(config *Config, args ...string) error {
@@ -20,7 +22,17 @@ func CatchCommand(config *Config, args ...string) error {
 	}
 
 	fmt.Printf("Throwing a Pokéball at %v\n", pokémon.Name)
-	fmt.Printf("%v escaped!\n", pokémon.Name)
+
+	ball := utils.RandomThresholdCheck{
+		Value: int(pokémon.BaseExperience),
+	}
+	isCaught := utils.PassesRandomThreshholdCheck(ball)
+
+	if isCaught {
+		fmt.Printf("%v caught!\n", pokémon.Name)
+	} else {
+		fmt.Printf("%v escaped!\n", pokémon.Name)
+	}
 
 	return nil
 }
