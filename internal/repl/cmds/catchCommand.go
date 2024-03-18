@@ -28,7 +28,9 @@ func CatchCommand(config *Config, args ...string) error {
 		return errors.New("pokémon has already been caught")
 	}
 
-	fmt.Printf("Throwing a Pokéball at %v\n", pokémon.Name)
+	name := utils.UcFirst(pokémon.Name)
+
+	fmt.Printf("Throwing a Pokéball at %v\n", name)
 
 	ball := utils.RandomThresholdCheck{
 		Value: int(pokémon.BaseExperience),
@@ -36,12 +38,13 @@ func CatchCommand(config *Config, args ...string) error {
 	isCaught := utils.PassesRandomThreshholdCheck(ball)
 
 	if !isCaught {
-		fmt.Printf("%v escaped!\n", pokémon.Name)
+		fmt.Printf("%v escaped!\n", name)
 		return nil
 	}
 
-	fmt.Printf("%v caught!\n", pokémon.Name)
+	fmt.Printf("%v caught!\n", name)
 	pokedex.Add(pokémon)
-	fmt.Printf("%v added to Pokédex!\n", pokémon.Name)
+	fmt.Printf("%v added to Pokédex!\n", name)
+
 	return nil
 }

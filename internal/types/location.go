@@ -1,6 +1,10 @@
 package types
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/cjbagley/pokedexcli/utils"
+)
 
 type Location struct {
 	EncounterMethodRates []struct {
@@ -57,7 +61,7 @@ func (l *Location) PrintAreaPokemon() {
 	fmt.Printf("Exploring %v...\n", l.Location.Name)
 	fmt.Println("Found the following Pokémon:")
 	for _, pokemon := range l.PokemonEncounters {
-		fmt.Printf(" - %v\n", pokemon.Pokemon.Name)
+		fmt.Printf(" - %v\n", utils.UcFirst(pokemon.Pokemon.Name))
 	}
 	fmt.Printf("========================\n")
 }

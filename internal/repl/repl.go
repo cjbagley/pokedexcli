@@ -39,7 +39,7 @@ func StartRepl() {
 
 		err := cmd.Callback(&config, input...)
 		if err != nil {
-			DisplayError(err)
+			fmt.Println(utils.UcFirst(err.Error()))
 		}
 		showPrompt()
 	}
@@ -52,11 +52,7 @@ func showPrompt() {
 	fmt.Print(Prompt)
 }
 
-func DisplayError(err error) {
-	fmt.Printf("Error: %v\n", err.Error())
-}
-
 func ExitWithError(err error) {
-	DisplayError(err)
+	fmt.Printf("Error: %v\n", err.Error())
 	os.Exit(1)
 }
