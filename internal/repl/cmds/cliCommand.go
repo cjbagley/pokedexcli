@@ -33,23 +33,28 @@ func GetCliCommands() map[string]CliCommand {
 		},
 		"help": {
 			Name:        "help",
-			Description: "Displays a help message",
+			Description: "Displays a help message.",
 			Callback:    HelpCommand,
 		},
 		"inspect": {
 			Name:        "inspect",
-			Description: "Inspect a previously caught Pokémon. The name of the Pokémon must be passed with this command",
+			Description: "Inspect a previously caught Pokémon. The name of the Pokémon must be passed with this command.",
 			Callback:    InspectCommand,
 		},
 		"map": {
 			Name:        "map",
-			Description: "Displays the next 20 location areas. Each subsequent call will get the next 20 available",
+			Description: "Displays the next 20 location areas. Each subsequent call will get the next 20 available.",
 			Callback:    MapCommand,
 		},
 		"mapb": {
 			Name:        "mapb",
-			Description: "Displays the last 20 location areas. Each subsequent call will get the last 20 available",
+			Description: "Displays the last 20 location areas. Each subsequent call will get the last 20 available.",
 			Callback:    MapbCommand,
+		},
+		"pokedex": {
+			Name:        "pokedex",
+			Description: "Print details of all caught Pokémon in you Pokédex.",
+			Callback:    PokedexCommand,
 		},
 	}
 }

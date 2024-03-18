@@ -30,7 +30,7 @@ func CatchCommand(config *Config, args ...string) error {
 
 	name := utils.UcFirst(pokémon.Name)
 
-	fmt.Printf("Throwing a Pokéball at %v\n", name)
+	fmt.Printf("Throwing a Pokéball at %v...\n", name)
 
 	ball := utils.RandomThresholdCheck{
 		Value: int(pokémon.BaseExperience),

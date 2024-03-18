@@ -1,7 +1,10 @@
 package types
 
 import (
+	"fmt"
 	"sync"
+
+	"github.com/cjbagley/pokedexcli/utils"
 )
 
 var lock = &sync.Mutex{}
@@ -22,6 +25,18 @@ func (pd Pokedex) IsCaught(p Pokémon) bool {
 func (pd Pokedex) GetByName(name string) (pokémon Pokémon, ok bool) {
 	pokémon, ok = pd.dex[name]
 	return
+}
+
+func (pd Pokedex) PrintCaughtPokemon() {
+	if len(pd.dex) == 0 {
+		fmt.Println("Pokédex is empty - go catch some Pokémon!")
+		return
+	}
+
+	fmt.Println("Your Pokédex:")
+	for _, pokémon := range pd.dex {
+		fmt.Printf("\t- %v\n", utils.UcFirst(pokémon.Name))
+	}
 }
 
 var singlePokedex *Pokedex
