@@ -1,5 +1,11 @@
 package types
 
+import (
+	"fmt"
+
+	"github.com/cjbagley/pokedexcli/utils"
+)
+
 type Pokémon struct {
 	ID             int    `json:"id"`
 	Name           string `json:"name"`
@@ -271,4 +277,18 @@ type Pokémon struct {
 			} `json:"type"`
 		} `json:"types"`
 	} `json:"past_types"`
+}
+
+func (p Pokémon) PrintDetails() {
+	fmt.Printf("Name: %v\n", utils.UcFirst(p.Name))
+	fmt.Printf("Height: %v\n", p.Height)
+	fmt.Printf("Weight: %v\n", p.Weight)
+	fmt.Println("Stats:")
+	for _, stat := range p.Stats {
+		fmt.Printf("\t-%v: %v\n", stat.Stat.Name, stat.BaseStat)
+	}
+	fmt.Println("Types:")
+	for _, ptype := range p.Types {
+		fmt.Printf("\t-%v\n", ptype.Type.Name)
+	}
 }
