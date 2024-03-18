@@ -15,8 +15,13 @@ func (pd Pokedex) Add(p Pokémon) {
 }
 
 func (pd Pokedex) IsCaught(p Pokémon) bool {
-	_, ok := pd.dex[p.Name]
+	_, ok := pd.GetByName(p.Name)
 	return ok
+}
+
+func (pd Pokedex) GetByName(name string) (pokémon Pokémon, ok bool) {
+	pokémon, ok = pd.dex[name]
+	return
 }
 
 var singlePokedex *Pokedex

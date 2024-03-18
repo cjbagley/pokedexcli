@@ -36,6 +36,11 @@ func GetCliCommands() map[string]CliCommand {
 			Description: "Displays a help message",
 			Callback:    HelpCommand,
 		},
+		"inspect": {
+			Name:        "inspect",
+			Description: "Inspect a previously caught Pokémon. The name of the Pokémon must be passed with this command",
+			Callback:    InspectCommand,
+		},
 		"map": {
 			Name:        "map",
 			Description: "Displays the next 20 location areas. Each subsequent call will get the next 20 available",
